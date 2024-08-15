@@ -24,6 +24,23 @@ api = Api(app)
 def index():
     return "<h1>Code challenge</h1>"
 
+## RESTAURANTS ##########################################################################################
+@app.get("/restaurants")
+def get_all_restaurants():
+    restaurant_list = Restaurant.query.all()
+    restaurant_dicts = [restaurant.to_dict() for restaurant in restaurant_list]
+
+    return restaurant_dicts, 200
+
+@app.get("/restaurants/<int:id>")
+def get_restaurant(id):
+    found_restaurant = Restaurant.query.where(Restaurant.id == id).first()
+    if found_restaurant:
+        return found_restaurant.to_dict(), 200
+    else:
+        return {'error': 'Not found'}, 404
+
+
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
