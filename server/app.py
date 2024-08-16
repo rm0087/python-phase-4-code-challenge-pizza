@@ -34,11 +34,11 @@ def get_all_restaurants():
 
 @app.get("/restaurants/<int:id>")
 def get_restaurant(id):
-    found_restaurant = Restaurant.query.where(Restaurant.id == id).first()
-    if found_restaurant:
+    try:
+        found_restaurant = Restaurant.query.where(Restaurant.id == id).first()
         return found_restaurant.to_dict(), 200
-    else:
-        return {'error': 'Not found'}, 404
+    except:
+        return {"error": "Restaurant not found"}, 404
 
 
 

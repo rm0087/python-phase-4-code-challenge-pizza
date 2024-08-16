@@ -28,7 +28,14 @@ class Restaurant(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f"<Restaurant {self.name}>"
-
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'address': self.address,
+            # 'restaurant_pizzas': self.restaurant_pizzas
+        }
 
 class Pizza(db.Model, SerializerMixin):
     __tablename__ = "pizzas"
