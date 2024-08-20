@@ -34,7 +34,7 @@ class Restaurant(db.Model, SerializerMixin):
             'id': self.id,
             'name': self.name,
             'address': self.address,
-            # 'restaurant_pizzas': self.restaurant_pizzas
+            'restaurant_pizzas': [pizza.to_dict() for pizza in self.restaurant_pizzas]
         }
 
 class Pizza(db.Model, SerializerMixin):
@@ -50,7 +50,7 @@ class Pizza(db.Model, SerializerMixin):
     
 
     # add serialization rules
-    serialize_rules = ('-restaurants.pizza',)
+    serialize_rules = ('-restaurants',)
     
 
     def __repr__(self):
@@ -73,7 +73,7 @@ class RestaurantPizza(db.Model, SerializerMixin):
     
 
     # add serialization rules
-    serialize_rules = ('-restaurant', '-pizza')
+    serialize_rules = ('-restaurant',)
 
     # add validation
 
